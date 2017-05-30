@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Resume.Models;
 
 namespace Resume
 {
@@ -29,6 +31,15 @@ namespace Resume
         {
             // Add framework services.
             services.AddMvc();
+
+            services.AddDbContext<ResumeContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ResumeContext")));
+
+            services.AddDbContext<JobContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("JobContext")));
+
+            services.AddDbContext<AccomplishmentContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("AccomplishmentContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
